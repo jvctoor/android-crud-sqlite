@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
                     classeCliente = new ClasseCliente(1, edt_nome.getText().toString(), Integer.parseInt(edt_idade.getText().toString()),switch_ativo.isChecked());
                     boolean sucesso = dataBaseHelper.adicionarCliente(classeCliente);
                     Toast.makeText(MainActivity.this, "Cliente adicionado!", Toast.LENGTH_SHORT).show();
+                    edt_id.setText("");
+                    edt_idade.setText("");
+                    edt_nome.setText("");
                     popularLista(dataBaseHelper);
 
                 } catch(Exception e){
@@ -76,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                     classeCliente = new ClasseCliente(1, edt_nome.getText().toString(), Integer.parseInt(edt_idade.getText().toString()), switch_ativo.isChecked());
                     boolean sucesso = dataBaseHelper.atualizarCliente(idCliente, classeCliente);
                     Toast.makeText(MainActivity.this, "Sucesso, cliente atualizado!", Toast.LENGTH_SHORT).show();
+                    edt_id.setText("");
+                    edt_idade.setText("");
+                    edt_nome.setText("");
                     popularLista(dataBaseHelper);
                 } catch (Exception e){
                     Toast.makeText(MainActivity.this, "Erro, cliente não atualizado", Toast.LENGTH_SHORT).show();
@@ -90,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
                 int id = Integer.parseInt(edt_id.getText().toString());
                 dataBaseHelper.deletarCliente(id);
                 Toast.makeText(MainActivity.this, "Cliente deletado do banco de dados", Toast.LENGTH_SHORT).show();
+                edt_id.setText("");
+                edt_idade.setText("");
+                edt_nome.setText("");
                 popularLista(dataBaseHelper);
             }
         });
