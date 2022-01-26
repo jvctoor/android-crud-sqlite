@@ -14,6 +14,16 @@ public class ClasseCliente {
         this.clienteAtivo = clienteAtivo;
     }
 
+    @Override
+    public String toString() {
+        return "ClasseCliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", idade=" + idade +
+                ", clienteAtivo=" + clienteAtivo +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
