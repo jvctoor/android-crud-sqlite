@@ -52,6 +52,40 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean atualizarCliente(String id, ClasseCliente classeCliente){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUNA_NOME_CLIENTE, classeCliente.getNome());
+        cv.put(COLUNA_IDADE_CLIENTE, classeCliente.getIdade());
+        cv.put(COLUNA_CLIENTE_ATIVO, classeCliente.isClienteAtivo());
+
+        int count = db.update(TABELA_CLIENTE, cv, "ID = ?", new String[] {id} );
+
+        if (count == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean deletarCliente(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryDelete = "DELETE FROM " + TABELA_CLIENTE + " WHERE " + COLUNA_ID + " = " + id;
+
+        Cursor cursor = db.rawQuery(queryDelete, null);
+
+        if(cursor.moveToFirst()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
     public ArrayList<ClasseCliente> listaClientes(){
 
         ArrayList<ClasseCliente> listaRetorno = new ArrayList<>();
@@ -81,4 +115,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         return listaRetorno;
     }
+
 }
