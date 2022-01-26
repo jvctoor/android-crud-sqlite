@@ -2,10 +2,13 @@ package com.example.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
@@ -47,5 +50,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+    }
+
+    public ArrayList<ClasseCliente> listaClientes(){
+
+        ArrayList<ClasseCliente> listaRetorno = new ArrayList<>();
+
+        String querySelect = "SELECT * FROM "+ TABELA_CLIENTE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor response = db.rawQuery(querySelect, null);
+
+        if(response.moveToFirst()){
+            do{
+                int idCliente = response.getInt(0);
+                String nomeCliente = response.getString(1);
+                int idadeCliente = response.getInt(2);
+                boolean clienteAtivo = response.getInt(3) == 1 ? true : false;
+
+                ClasseCliente classeCliente = new ClasseCliente(idCliente, nomeCliente, idadeCliente, clienteAtivo);
+                listaRetorno.add(classeCliente);
+
+            } while(response.moveToNext());
+        } else {
+
+        }
+
+        response.close();
+        db.close();
+
+        return listaRetorno;
     }
 }
